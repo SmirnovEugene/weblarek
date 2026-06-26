@@ -1,10 +1,10 @@
-import type { IBuyer } from "../../types/index.ts";
+import type { IBuyer, Validate } from "../../types/index.ts";
 
 /** хранит в себе информацию о покупателе */
 export class Buyer {
   /** объект с данными о покупателе */
   private buyerData: IBuyer = {
-    payment: "",
+    payment: null,
     email: "",
     phone: "",
     address: "",
@@ -23,46 +23,28 @@ export class Buyer {
   /** очистка данных покупателя */
   clear() {
     this.buyerData = {
-      payment: "",
+      payment: null,
       email: "",
       phone: "",
       address: "",
     };
   }
 
-  /** валидация данных: возвращает обьект содержащий ошибку или true, если валидация успешна  */
-  validateForm(): {} | boolean {
-    const buyerErr: Partial<Record<keyof IBuyer, string>> = {};
-    for (const [field, value] of Object.entries(this.buyerData)) {
-      switch (field) {
-        case "payment":
-          if (!value.trim()) {
+  /** валидация данных: возвращает обьект содержащий ошибку */
+  validate(): Partial<Validate> {
+    const buyerErr: Partial<Validate> = {};
+          if (!this.buyerData.payment?.trim()) {
             buyerErr.payment = "Способ оплаты не выбран";
           }
-          break;
-        case "email":
-          if (!value.trim()) {
+          if (!this.buyerData.email.trim()) {
             buyerErr.email = "Некорректный email";
           }
-          break;
-        case "phone":
-          if (!value.trim()) {
+          if (!this.buyerData.phone.trim()) {
             buyerErr.phone = "Поле phone не должно быть пустым";
           }
-
-          break;
-        case "address":
-          if (!value.trim()) {
+          if (!this.buyerData.address.trim()) {
             buyerErr.address = "Адрес доставки не введён";
           }
-
-          break;
+          return buyerErr;
+        }
       }
-    }
-    if (JSON.stringify(buyerErr) !== "{}") {
-      return buyerErr;
-    } else {
-      return true;
-    }
-  }
-}
