@@ -49,7 +49,7 @@ export interface IBuyer {
 }
 
 /** обьект с ключем интерфейса IBuyer и значением string */
-export type Validate = Record<keyof IBuyer, string>;
+export type Validate = Partial<Record<keyof IBuyer, string>>;
 
 /** Обьект полученый от сервера */
 export interface ApiResponce {

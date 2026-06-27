@@ -31,20 +31,20 @@ export class Buyer {
   }
 
   /** валидация данных: возвращает обьект содержащий ошибку */
-  validate(): Partial<Validate> {
-    const buyerErr: Partial<Validate> = {};
-          if (!this.buyerData.payment?.trim()) {
-            buyerErr.payment = "Способ оплаты не выбран";
-          }
-          if (!this.buyerData.email.trim()) {
-            buyerErr.email = "Некорректный email";
-          }
-          if (!this.buyerData.phone.trim()) {
-            buyerErr.phone = "Поле phone не должно быть пустым";
-          }
-          if (!this.buyerData.address.trim()) {
-            buyerErr.address = "Адрес доставки не введён";
-          }
-          return buyerErr;
-        }
-      }
+  validate(): Validate {
+    const buyerErr: Validate = {};
+    if (!this.buyerData.payment?.trim()) {
+      buyerErr.payment = "Способ оплаты не выбран";
+    }
+    if (!this.buyerData.email.trim()) {
+      buyerErr.email = "Некорректный email";
+    }
+    if (!this.buyerData.phone.trim()) {
+      buyerErr.phone = "Поле phone не должно быть пустым";
+    }
+    if (!this.buyerData.address.trim()) {
+      buyerErr.address = "Адрес доставки не введён";
+    }
+    return buyerErr;
+  }
+}
