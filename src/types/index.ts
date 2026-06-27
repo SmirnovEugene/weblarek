@@ -31,12 +31,12 @@ export interface IProduct {
 }
 
 /** способ оплаты */
-export type Payment = "cash" | "card" | null;
+export type Payment = "cash" | "card";
 
 /** Содержит в себе информацию о покупателе */
 export interface IBuyer {
   /**  способ оплаты */
-  payment: Payment;
+  payment: Payment | null;
 
   /**  элекстронная почта покупателя */
   email: string;
@@ -52,13 +52,13 @@ export interface IBuyer {
 export type Validate = Record<keyof IBuyer, string>;
 
 /** Обьект полученый от сервера */
-export type ApiResponce = {
+export interface ApiResponce {
   /** количество товаров */
   total: number;
 
   /** массиф с интефесом Iproduct */
   items: IProduct[];
-};
+}
 
 /** Данные отправляемые на сервер */
 export interface ApiOrder extends IBuyer {
@@ -69,10 +69,10 @@ export interface ApiOrder extends IBuyer {
 }
 
 /** обьект полученый от сервера при POST запросе */
-export type OrderResponce = {
+export interface OrderResponce {
   /** ид заказа */
   id: string;
 
   /**сумма товаров */
   total: number;
-};
+}

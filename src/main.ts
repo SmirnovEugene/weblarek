@@ -111,24 +111,22 @@ console.log("проверка очисткb данных покупателя", 
 
 // ...... работа с Api ......
 
-  try {
-    const data = await apiCom.getProductList();
+apiCom
+  .getProductList()
+  .then((data) => {
     productsModel.setProductList(data.items);
-  } catch (error) {
-    // Ошибки промиса перехватываются с помощью try...catch
+    console.log(
+      "получения массива всех товаров c cервера",
+      productsModel.getProductList(),
+    );
+  })
+  .catch((error) => {
     console.error("Ошибка при получении данных:", error);
-  }
+  });
 
-console.log(
-  "вывожу данные полученые с сервера",
-  productsModel.getProductList(),
-);
-
-const postData = await apiCom
+apiCom
   .postOrder(apiOrder)
   .then((res) => {
-    return res;
+    console.log("возвращает объект c id заказа и суммой товаров", res);
   })
-  .catch((error) => console.log(error));
-
-console.log("возвращает объект c id заказа и суммой товаров", postData);
+  .catch((error) => console.error("Ошибка при получении данных:", error));
